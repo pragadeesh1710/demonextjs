@@ -1,65 +1,175 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const skills = ["C++", "Java", "Python", "Next.js", "Oracle", "Git & GitHub"];
+
+  const projects = [
+    "Railway Reservation System",
+    "ShadowOps Digital Twin",
+  ];
+
+  // Typing animation text
+  const text = "Building Software Systems That Matter";
+  const [typed, setTyped] = useState("");
+
+  useEffect(() => {
+    let i = 0;
+
+    const interval = setInterval(() => {
+      setTyped(text.slice(0, i));
+      i++;
+
+      if (i > text.length) clearInterval(interval);
+    }, 60);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen bg-black text-white overflow-hidden relative">
+
+      {/* 🌌 BACKGROUND */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-green-950 to-black animate-bgMove"></div>
+
+        <div className="absolute top-20 left-20 w-72 h-72 bg-green-500/20 rounded-full blur-3xl animate-float"></div>
+
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl animate-float2"></div>
+
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-green-300/10 rounded-full blur-3xl animate-float3"></div>
+      </div>
+
+      {/* NAVBAR */}
+      <nav className="sticky top-0 bg-black/60 backdrop-blur-md border-b border-green-500/20 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between">
+          <h1 className="text-green-400 font-bold">
+            Pragadeeshwaran
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+          <div className="hidden md:flex gap-6 text-gray-300">
+            <a href="#about" className="hover:text-green-400">About</a>
+            <a href="#skills" className="hover:text-green-400">Skills</a>
+            <a href="#projects" className="hover:text-green-400">Projects</a>
+            <a href="#contact" className="hover:text-green-400">Contact</a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+      </nav>
+
+      {/* HERO */}
+      <section className="max-w-6xl mx-auto px-6 py-32">
+
+        <p className="text-green-400 tracking-widest animate-pulse">
+          CRAFTING DIGITAL SYSTEMS
+        </p>
+
+        <h1 className="text-5xl md:text-7xl font-black leading-tight mt-4">
+          {typed}
+          <span className="text-green-400 animate-pulse"> |</span>
+        </h1>
+
+        <p className="mt-8 text-gray-300 max-w-2xl text-lg">
+          I'm a Computer Science Engineering student passionate about software
+          development, system design, and modern web apps.
+        </p>
+
+        <div className="flex gap-4 mt-10">
+
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://github.com/pragadeesh1710"
             target="_blank"
             rel="noopener noreferrer"
+            className="bg-green-500 text-black px-6 py-3 rounded-lg font-bold hover:scale-110 transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            GitHub
           </a>
+
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://www.linkedin.com/in/pragadeesh-waran-p-8b90b8373"
             target="_blank"
             rel="noopener noreferrer"
+            className="border border-green-500 px-6 py-3 rounded-lg hover:bg-green-500/10 transition"
           >
-            Documentation
+            LinkedIn
           </a>
+
+          <a
+            href="mailto:pragadeeshwaran060@gmail.com"
+            className="border border-green-500 px-6 py-3 rounded-lg hover:bg-green-500/10 transition"
+          >
+            Email
+          </a>
+
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-green-400 mb-6">
+          About Me
+        </h2>
+
+        <div className="bg-white/5 border border-green-500/20 p-6 rounded-xl hover:scale-[1.02] transition">
+          Passionate developer focused on software engineering and modern web development.
+        </div>
+      </section>
+
+      {/* SKILLS */}
+      <section id="skills" className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-green-400 mb-8">
+          Skills
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {skills.map((s) => (
+            <div
+              key={s}
+              className="bg-white/5 border border-green-500/20 p-6 rounded-xl hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition"
+            >
+              {s}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PROJECTS */}
+      <section id="projects" className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-green-400 mb-8">
+          Projects
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {projects.map((p) => (
+            <div
+              key={p}
+              className="bg-white/5 border border-green-500/20 p-6 rounded-xl hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition"
+            >
+              <h3 className="font-bold mb-2">{p}</h3>
+              <p className="text-gray-400 text-sm">
+                Click to explore project details.
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-green-400 mb-6">
+          Contact
+        </h2>
+
+        <div className="bg-white/5 border border-green-500/20 p-6 rounded-xl">
+          <p>📧 pragadeeshwaran060@gmail.com</p>
+          <p>🔗 LinkedIn available</p>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="text-center py-10 text-gray-500 border-t border-green-500/20">
+        © 2026 Pragadeeshwaran
+      </footer>
+    </main>
   );
 }
