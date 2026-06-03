@@ -1,42 +1,289 @@
 @import "tailwindcss";
 
-/* 🌐 Base theme variables */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ================================
+   PORTFOLIO — globals.css
+   All custom styles live here.
+   No Tailwind classes in page.tsx
+   to avoid z-index / pointer-event
+   conflicts with Tailwind layers.
+================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------- RESET / BASE ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #000;
+  color: #fff;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
-/* 🌌 ANIMATIONS (CLEAN - NO DUPLICATES) */
+/* ---------- LAYOUT ---------- */
+.portfolio-main {
+  min-height: 100vh;
+  position: relative;
+}
 
+.section {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.hero-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+/* ---------- BACKGROUND LAYER ---------- */
+/* Everything here is non-interactive — pointer-events: none on all */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #000 0%, #052e16 50%, #000 100%);
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 288px;
+  height: 288px;
+  background: rgba(34, 197, 94, 0.18);
+  top: 80px;
+  left: 80px;
+}
+
+.blob-2 {
+  width: 384px;
+  height: 384px;
+  background: rgba(52, 211, 153, 0.10);
+  bottom: 80px;
+  right: 80px;
+}
+
+.blob-3 {
+  width: 320px;
+  height: 320px;
+  background: rgba(134, 239, 172, 0.10);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  color: #22c55e;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #22c55e;
+}
+
+/* ---------- HERO ---------- */
+.hero-sub {
+  color: #22c55e;
+  letter-spacing: 0.2em;
+  font-size: 13px;
+  margin-bottom: 16px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.cursor {
+  color: #22c55e;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.hero-desc {
+  margin-top: 24px;
+  color: #9ca3af;
+  max-width: 600px;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* ---------- SECTION TITLES ---------- */
+.section-title {
+  color: #22c55e;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 24px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.reply-card {
+  margin-top: 20px;
+}
+
+/* ---------- GRID ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* ---------- AI SECTION ---------- */
+.ai-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* KEY FIX: white background so text is visible on black page */
+.ai-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  background: #ffffff;       /* visible white box */
+  color: #000000;            /* black text */
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ai-input::placeholder {
+  color: #6b7280;
+}
+
+.ai-input:focus {
+  border-color: #22c55e;
+}
+
+.ai-btn {
+  flex-shrink: 0;
+  background: #22c55e;
+  color: #000;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  /* No z-index needed — plain flow button always clickable */
+}
+
+.ai-btn:hover {
+  background: #16a34a;
+}
+
+.ai-btn:active {
+  transform: scale(0.97);
+}
+
+.thinking {
+  color: #22c55e;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 32px 24px;
+  color: #6b7280;
+  border-top: 1px solid rgba(34, 197, 94, 0.2);
+  font-size: 14px;
+}
+
+/* ---------- ANIMATIONS ---------- */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-30px); }
+  50%       { transform: translateY(-30px); }
 }
 
 @keyframes float2 {
   0%, 100% { transform: translateX(0px); }
-  50% { transform: translateX(-40px); }
+  50%       { transform: translateX(-40px); }
 }
 
 @keyframes float3 {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50%       { transform: scale(1.2); }
 }
 
 @keyframes bgMove {
-  0% { filter: hue-rotate(0deg); }
+  0%   { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.animate-float   { animation: float   6s  ease-in-out infinite; }
+.animate-float2  { animation: float2  8s  ease-in-out infinite; }
+.animate-float3  { animation: float3  10s ease-in-out infinite; }
+.animate-bgMove  { animation: bgMove  12s linear     infinite; }
