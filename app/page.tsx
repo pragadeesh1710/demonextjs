@@ -11,7 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const askAI = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
     setLoading(true);
     setReply("");
     try {
@@ -21,11 +21,16 @@ export default function Home() {
         body: JSON.stringify({ prompt: input }),
       });
       const data = await res.json();
-      setReply(data.reply || "No response");
+      if (!res.ok) {
+        setReply(data.error || "An error occurred while contacting the AI.");
+      } else {
+        setReply(data.reply || data.answer || "No response received.");
+      }
     } catch (err) {
-      setReply("Error connecting to AI");
+      setReply("Error connecting to AI service. Please check your network connection.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const text = "Building Software Systems That Matter";
@@ -93,12 +98,13 @@ export default function Home() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && askAI()}
+            onKeyDown={(e) => e.key === "Enter" && !loading && askAI()}
             placeholder="Ask: Who is Pragadeesh?"
             className="ai-input"
+            disabled={loading}
           />
-          <button onClick={askAI} className="ai-btn">
-            Ask
+          <button onClick={askAI} className="ai-btn" disabled={loading}>
+            {loading ? "..." : "Ask"}
           </button>
         </div>
         {loading && <p className="thinking">Thinking...</p>}

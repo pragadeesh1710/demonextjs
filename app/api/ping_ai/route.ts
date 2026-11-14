@@ -1,9 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
-
 const SYSTEM_PROMPT = `You are an AI assistant embedded in Pragadeeshwaran's personal portfolio website.
 Answer questions about him in a friendly, professional tone.
 
@@ -18,22 +14,43 @@ Keep answers concise (2-4 sentences). If asked something you don't know, say you
 
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json();
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return Response.json(
+        { error: "GEMINI_API_KEY is not configured in environment variables." },
+        { status: 500 }
+      );
+    }
 
-    if (!prompt) {
+    const body = await req.json().catch(() => ({}));
+    const query = body.prompt || body.question;
+
+    if (!query) {
       return Response.json({ error: "No prompt provided" }, { status: 400 });
     }
 
+    const ai = new GoogleGenAI({ apiKey });
+
     const res = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: `${SYSTEM_PROMPT}\n\nUser question: ${prompt}`,
+      model: "gemini-2.0-flash",
+      contents: query,
+      config: {
+        systemInstruction: SYSTEM_PROMPT,
+      },
     });
 
     const reply = res.text ?? "Sorry, I could not generate a response.";
 
-    return Response.json({ reply });
-  } catch (error) {
+    return Response.json({ reply, answer: reply });
+  } catch (error: any) {
     console.error("Gemini error:", error);
-    return Response.json({ error: "AI request failed" }, { status: 500 });
+    return Response.json(
+      { error: error?.message || "AI request failed" },
+      { status: 500 }
+    );
   }
+}
+
+export async function GET() {
+  return Response.json({ status: "ok", message: "AI endpoint is active" });
 }
