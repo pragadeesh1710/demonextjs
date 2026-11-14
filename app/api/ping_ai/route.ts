@@ -31,17 +31,41 @@ export async function POST(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+    const preferredModel = process.env.GEMINI_MODEL;
+    const candidateModels = [
+      preferredModel,
+      "gemini-3.8-flash",
+      "gemini-3.8-flash-lite",
+      "gemini-2.5-flash",
+      "gemini-1.5-flash",
+    ].filter((m, i, arr): m is string => Boolean(m) && arr.indexOf(m) === i);
 
-    const res = await ai.models.generateContent({
-      model,
-      contents: query,
-      config: {
-        systemInstruction: SYSTEM_PROMPT,
-      },
-    });
+    let res: any = null;
+    let lastError: any = null;
 
-    const reply = res.text ?? "Sorry, I could not generate a response.";
+    for (const model of candidateModels) {
+      try {
+        res = await ai.models.generateContent({
+          model,
+          contents: query,
+          config: {
+            systemInstruction: SYSTEM_PROMPT,
+          },
+        });
+        if (res?.text) {
+          break;
+        }
+      } catch (err: any) {
+        lastError = err;
+        console.warn(`Model ${model} failed, attempting fallback:`, err?.message || err);
+      }
+    }
+
+    if (!res && lastError) {
+      throw lastError;
+    }
+
+    const reply = res?.text ?? "Sorry, I could not generate a response.";
 
     return Response.json({ reply, answer: reply });
   } catch (error: any) {
