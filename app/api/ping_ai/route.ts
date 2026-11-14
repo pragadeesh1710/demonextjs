@@ -11,7 +11,7 @@ About Pragadeeshwaran P:
 - Contact Details:
   * Email: pragadeeshwaran060@gmail.com
   * Phone: +91 7538873217
-  * LinkedIn: https://linkedin.com/in/pragadeeshwaran-p
+  * LinkedIn: https://www.linkedin.com/in/pragadeeshwaran-p-8b90b8373
   * GitHub: https://github.com/pragadeesh1710
 - Technical Skills:
   * Languages: C++, Java, Python

@@ -125,7 +125,7 @@ export default function Home() {
           <a href="https://github.com/pragadeesh1710" target="_blank" rel="noopener noreferrer" className="btn-outline">
             GitHub ↗
           </a>
-          <a href="https://linkedin.com/in/pragadeeshwaran-p" target="_blank" rel="noopener noreferrer" className="btn-outline">
+          <a href="https://www.linkedin.com/in/pragadeeshwaran-p-8b90b8373" target="_blank" rel="noopener noreferrer" className="btn-outline">
             LinkedIn ↗
           </a>
         </div>
@@ -228,7 +228,7 @@ export default function Home() {
         <div className="card">
           <p style={{ marginBottom: "8px" }}>📧 <strong>Email:</strong> <a href="mailto:pragadeeshwaran060@gmail.com" style={{ color: "#22c55e", textDecoration: "none" }}>pragadeeshwaran060@gmail.com</a></p>
           <p style={{ marginBottom: "8px" }}>📱 <strong>Phone:</strong> +91 7538873217</p>
-          <p style={{ marginBottom: "8px" }}>💼 <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/pragadeeshwaran-p" target="_blank" rel="noopener noreferrer" style={{ color: "#22c55e", textDecoration: "none" }}>linkedin.com/in/pragadeeshwaran-p</a></p>
+          <p style={{ marginBottom: "8px" }}>💼 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pragadeeshwaran-p-8b90b8373" target="_blank" rel="noopener noreferrer" style={{ color: "#22c55e", textDecoration: "none" }}>linkedin.com/in/pragadeeshwaran-p-8b90b8373</a></p>
           <p>💻 <strong>GitHub:</strong> <a href="https://github.com/pragadeesh1710" target="_blank" rel="noopener noreferrer" style={{ color: "#22c55e", textDecoration: "none" }}>github.com/pragadeesh1710</a></p>
         </div>
       </section>
